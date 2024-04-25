@@ -7,7 +7,7 @@
             <router-link to="/profile">
               <div class="item-center flex">
                 <img v-if="!open" src="../assets/logo/logo.svg" alt="LOGO" class="h-8 w-auto scale-150">
-                <p v-if="open" class="ml-3 text-3xl font-normal font-sans">Меню</p>
+                <p v-if="open" class="ml-3 text-3xl font-normal font-sans textcolor">Меню</p>
               </div>
             </router-link>
             <div class="hidden sm:ml-6 sm:block">
@@ -22,7 +22,7 @@
 
           <div class="absolute inset-y-0 right-0 flex items-center sm:hidden w-12 h-12 mt-2">
             <!-- Mobile menu button-->
-            <DisclosureButton class="relative inline-flex bg-button items-center justify-center rounded-md p-2 text-gray-400 hover:text-white" :class="{'bg-button-menu': open }">
+            <DisclosureButton class="relative inline-flex bg-button items-center justify-center rounded-md p-2 text-gray-400 hover:text-white" @click="toggleMenu()" :class="{'bg-button-menu': open }">
               <span class="absolute -inset-0.5" />
               <span class="sr-only">Открыть главное меню</span>
               <Bars3Icon v-if="!open" class="block h-6 w-6 rounded-lg" aria-hidden="true" />
@@ -33,8 +33,7 @@
       </div>
 
       <DisclosurePanel class="sm:hidden fixed inset-0 right-0 overflow-y-auto z-40 bg-aqua mt-16 transition-all duration-300 ease-out transform"
-                       :class="{'-translate-x-full': !open, 'translate-x-0 rounded-bl-lg border-green-aqua overflow-y-none': open }"
-                       v-bind:class="{ 'overflow-hidden': open }">
+                       :class="{'-translate-x-full': !open, 'translate-x-0 rounded-bl-lg border-green-aqua overflow-y-none hide-scrollbar': open }">
         <div class="h-full flex flex-col">
           <div class="space-y-1 px-2 pb-3 pt-2 gap-10">
             <template v-for="(item, index) in navigation" :key="item.name">
@@ -49,7 +48,7 @@
           </div>
           <div class="w-full flex flex-col items-center">
             <div class="flex items-center">
-              <img src="/src/assets/icons/mobile.svg" alt="Mobile Icon"><p class="ml-5 font-bold text-2xl font-sans">+ 7 777 777 77 77</p>
+              <img src="/src/assets/icons/mobile.svg" alt="Mobile Icon"><p class="ml-5 font-bold text-2xl font-sans textcolor">+ 7 777 777 77 77</p>
             </div>
             <div class="bg-button mt-5">
               <button class="px-5 font-normal">ЗАКАЗАТЬ</button>
@@ -62,7 +61,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { defineProps, defineEmits, watch } from 'vue'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { useRouter } from 'vue-router';
@@ -70,20 +69,19 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const navigation = [
-  { name: 'Главная', current: true },
-  { name: 'Товары', current: false },
-  { name: 'Генерация', current: false },
-  { name: 'Отзывы', current: false },
-  { name: 'Контакты', current: false }
+  { name: 'Главная', path: '/', current: true },
+  { name: 'Товары', path: '/products', current: false },
+  { name: 'Генерация', path: '/generation', current: false },
+  { name: 'Отзывы', path: '/reviews', current: false },
+  { name: 'Контакты', path: '/contacts', current: false }
 ];
 
 const handleNavigation = (item) => {
-  emits('navigate', item) // передаем объект item вместо его имени
+  emits('navigate', item); // передаем объект item вместо его имени
 }
 
-const logout = () => {
-  localStorage.clear();
-  router.push('/');
+const toggleMenu = () => {
+  document.body.classList.toggle('overflow-hidden');
 }
 </script>
 
@@ -93,7 +91,7 @@ const logout = () => {
 }
 
 .overflow-hidden {
-  overflow-y: hidden;
+  height: 100vh;
 }
 
 .fixed {
