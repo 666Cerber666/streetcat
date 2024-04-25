@@ -1,5 +1,5 @@
 // router.ts
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { RouteRecordRaw } from 'vue-router';
 import Home from './pages/Home.vue'; // Подставьте ваш компонент для домашней страницы
 
 const routes: Array<RouteRecordRaw> = [
@@ -10,9 +10,4 @@ const routes: Array<RouteRecordRaw> = [
   },
 ];
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
-
-export default router;
+export default routes;
