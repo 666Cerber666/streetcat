@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Disclosure as="nav" class="bg-aqua relative z-50 rounded-tl-lg" v-slot="{ open }">
+    <Disclosure as="nav" class="bg-aqua relative z-50 rounded-tl-lg pr-2" v-slot="{ open }">
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8" :class="{'border-green-aqua rounded-tl-lg' : open}">
         <div class="relative flex h-16 items-center">
           <div class="sm:items-stretch sm:justify-start flex items-center">
@@ -33,7 +33,7 @@
       </div>
 
       <DisclosurePanel class="sm:hidden fixed inset-0 right-0 overflow-y-auto z-40 bg-aqua mt-16 transition-all duration-300 ease-out transform"
-                       :class="{'-translate-x-full': !open, 'translate-x-0 rounded-bl-lg border-green-aqua overflow-y-none hide-scrollbar': open }">
+          :class="{'-translate-x-full': !open, 'translate-x-0 rounded-bl-lg border-green-aqua overflow-y-none hide-scrollbar': open }">
         <div class="h-full flex flex-col">
           <div class="space-y-1 px-2 pb-3 pt-2 gap-10">
             <template v-for="(item, index) in navigation" :key="item.name">
@@ -58,6 +58,10 @@
       </DisclosurePanel>
     </Disclosure>
   </div>
+    <q-breadcrumbs separator="●" separator-color="blue-grey-5" active-color="teal-8" class="colorsbread ml-5 mt-5">
+        <q-breadcrumbs-el label="Главная" icon="home" />
+        <q-breadcrumbs-el label="" icon="widgets" />
+    </q-breadcrumbs>
 </template>
 
 <script setup>
@@ -70,14 +74,26 @@ const router = useRouter();
 
 const navigation = [
   { name: 'Главная', path: '/', current: true },
-  { name: 'Товары', path: '/products', current: false },
-  { name: 'Генерация', path: '/generation', current: false },
+  { name: 'Товары', path: '/Products', current: false },
+  { name: 'Генерация', path: '/GeneratePicture', current: false },
   { name: 'Отзывы', path: '/reviews', current: false },
   { name: 'Контакты', path: '/contacts', current: false }
 ];
 
+const nameMapping = {
+  'Главная': '/',
+  'Товары': 'Products',
+  'Генерация': 'GeneratePicture',
+  'Товары': 'TableWorkers',
+  // Добавьте сюда другие соответствия, если необходимо
+};
+
+const getEnglishName = (item) => {
+  return nameMapping[item];
+};
+
 const handleNavigation = (item) => {
-  emits('navigate', item); // передаем объект item вместо его имени
+  router.push(item.path); // передаем объект item вместо его имени
 }
 
 const toggleMenu = () => {

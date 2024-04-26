@@ -7,6 +7,10 @@
   color:#254446;
 }
 
+.bg-block{
+  background-color: #254446;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -24,6 +28,10 @@
 
 body{
   background-color: #ABD5D6;
+}
+
+html, body {
+  overflow-x: hidden;
 }
 
 header{

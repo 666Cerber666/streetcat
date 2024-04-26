@@ -1,10 +1,6 @@
 <template>  
     <q-layout>
       <Header />
-            <q-breadcrumbs separator="●" separator-color="blue-grey-5" active-color="teal-8" class="colorsbread ml-5 mt-5">
-                <q-breadcrumbs-el label="Home" icon="home" />
-                <q-breadcrumbs-el label="Breadcrumbs" icon="widgets" />
-            </q-breadcrumbs>
       <div class="flex items-center w-full p-5">
         <h2 class="mb-2">Генерация картины</h2>
         <div class="w-full flex flex-col items-center bg-button justify-center text-center py-7 px-5 ">
@@ -12,10 +8,44 @@
                 <p class="text-white font-bold">Вставьте своё фото для генерации</p>
                 <p class="text-white text-start">Ваши предыдущие генерации доступны ниже</p>
           </div>
-        <div class="flex flex-col gap-5 w-full mt-4">
+        <div class="flex flex-col mt-4">
           <div>
             <p class="mb-4">Ваши генерации</p>
-            <img class="image w-full" src="../assets/images/image2.png">
+
+            <div class="w-screen overflow-x-hidden">
+              <div class="section">
+                <div class="section__item">
+                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
+                    <div class="absolute-bottom text-subtitle1 text-center">
+                      Открыть
+                    </div>
+                  </q-img>
+                </div>
+                <div class="section__item">
+                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
+                    <div class="absolute-bottom text-subtitle1 text-center">
+                      Открыть
+                    </div>
+                  </q-img>
+                </div>
+                <div class="section__item">
+                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
+                    <div class="absolute-bottom text-subtitle1 text-center">
+                      Открыть
+                    </div>
+                  </q-img>
+                </div>
+                <div class="section__item">
+                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
+                    <div class="absolute-bottom text-subtitle1 text-center">
+                      Открыть
+                    </div>
+                  </q-img>
+                </div>
+              </div>
+            </div>
+
+
           </div>
   
 
@@ -26,41 +56,34 @@
     
   <script setup lang="ts">
   import Header from '../components/Header.vue';
-  import Slider from '../components/Slider.vue';
-  import { defineComponent } from 'vue';
-  
-  const TextInCard = [
-    {
-      icon: "src/assets/icons/iconsBlock/1.png",
-      description: "Отлично подходит для подарка",
-    },
-    {
-      icon: "src/assets/icons/iconsBlock/2.png",
-      description: "Создает атмосферу уюта и элегантности",
-    },
-    {
-      icon: "src/assets/icons/iconsBlock/3.png",
-      description: "Простые в сборке",
-    },
-    {
-      icon: "src/assets/icons/iconsBlock/4.png",
-      description: "Ежедневная тех. поддержка",
-    },
-    {
-      icon: "src/assets/icons/iconsBlock/5.png",
-      description: "Приемлимые цены",
-    },
-  ];
-  
-  defineComponent({
-    name: 'Home',
-  });
+
   </script>
   
   <style scoped>
   .image {
     height: 320px;
     border-radius: 10px;
+  }
+
+  .section {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  scroll-snap-type: x mandatory;
+  padding-right:25px;
+}
+
+.section__item {
+  scroll-snap-align: start;
+}
+
+.section:last-child {
+scroll-snap-align: end;
+}
+
+  .galleryimages{
+    width:278px; 
+    height:200px;
   }
 
   .colorsbread{
