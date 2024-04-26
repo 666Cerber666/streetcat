@@ -1,7 +1,7 @@
 <template>  
-  <q-layout>
+  <q-layout class="wrapper">
     <Header />
-    <div class="flex items-center w-full mt-8 p-5">
+    <div class="flex items-center w-full mt-8 p-5 mobile-only">
       <Slider />
       <div class="flex flex-col gap-5 w-full mt-4">
         <div>
@@ -23,6 +23,40 @@
         </div>
       </div>
     </div>
+
+
+    <!-- Desktop Only -->
+
+    <div class="flex items-center w-full mt-8 p-5 desktop-only">
+      <Slider />
+      <div class="flex flex-col gap-5 w-full mt-4">
+        <div>
+          <p class="mb-4">Варианты картин</p>
+          <div class="grid grid-rows-3 gap-20">
+              <div class="flex flex-col h-96 w-full gap-20">
+                <div class="flex w-40 h-60"><div class="imagevar"></div><div class="imagevar"></div></div>
+                <div class="imagevar"></div>
+              </div>
+              <div></div>
+              <div></div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-5">
+          <div v-for="(card, index) in TextInCard" :key="index" class="blockcard w-full h-36 gap-2">
+            <div class="icon bg-aqua mb-2"><img :src="card.icon" alt="Card Icon"></div>
+            <p class="description">{{ card.description }}</p>
+          </div>
+        </div>
+
+        <div class="w-full flex flex-col items-center bg-button justify-center text-center p-5">
+            <div class="w-full bg-image h-40"></div>
+              <p class="text-white">Сгенерируй картинку со своим изображением</p>
+              <button class="w-full h-12 bg-white textcolor rounded-2xl description">СГЕНЕРИРОВАТЬ</button>
+        </div>
+      </div>
+    </div>
+
   </q-layout>
 </template>
   
@@ -63,6 +97,12 @@ defineComponent({
 .image {
   height: 320px;
   border-radius: 10px;
+}
+
+.imagevar{
+  background-image: url('../assets/images/image2.png');
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .blockcard {

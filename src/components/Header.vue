@@ -4,7 +4,7 @@
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8" :class="{'border-green-aqua rounded-tl-lg' : open}">
         <div class="relative flex h-16 items-center">
           <div class="sm:items-stretch sm:justify-start flex items-center">
-            <router-link to="/profile">
+            <router-link to="/">
               <div class="item-center flex">
                 <img v-if="!open" src="../assets/logo/logo.svg" alt="LOGO" class="h-8 w-auto scale-150">
                 <p v-if="open" class="ml-3 text-3xl font-normal font-sans textcolor">Меню</p>
@@ -29,12 +29,12 @@
               <XMarkIcon v-else class="block h-6 w-6 rounded-lg" aria-hidden="true" :class="{'textcolor': open }" />
             </DisclosureButton>
           </div>
-          <div class="absolute inset-y-0 right-0 flex items-center"><button class="w-full h-12 bg-white textcolor rounded-2xl description">ЗАКАЗАТЬ</button></div>
+          <div class="absolute inset-y-0 right-0 flex items-center"><button class="w-36 h-14 bg-button textcolor rounded-2xl description desktop-only mobile-hide">ЗАКАЗАТЬ</button></div>
           
         </div>
       </div>
 
-      <DisclosurePanel class="sm:hidden fixed inset-0 right-0 overflow-y-auto z-40 bg-aqua mt-16 transition-all duration-300 ease-out transform"
+      <DisclosurePanel class="fixed inset-0 right-0 overflow-y-auto z-40 bg-aqua mt-16 transition-all duration-300 ease-out transform"
           :class="{'-translate-x-full': !open, 'translate-x-0 rounded-bl-lg border-green-aqua overflow-y-none hide-scrollbar': open }">
         <div class="h-full flex flex-col">
           <div class="space-y-1 px-2 pb-3 pt-2 gap-10">

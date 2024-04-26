@@ -1,17 +1,19 @@
 <template>
-  <div class="h-full">
+  <div class="h-full w-full">
     <q-carousel
       animated
       v-model="slide"
+      arrows
       infinite
-      class="rounded-3xl carousel-container"
+      class="rounded-3xl carousel-container w-full"
     >
-      <q-carousel-slide :name="1" img-src="../assets/images/image1.png" class="flex items-center">
-        <div class="slide-content flex flex-cols items-center ">
-          <h1 class="text-white font-normal mb-4">Картины из ниток по фото</h1>
-          <p>Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p>
-          <button class="bg-button w-full mt-7">Заказать картину</button>
+      <q-carousel-slide :name="1" img-src="../assets/images/image1.png">
+        <div class="slide-content flex flex-col items-center justify-center gap-20 mt-20">
+          <div><h1 class="text-white font-normal mb-4">Картины из ниток по фото</h1>
+          <p>Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
+          <div><button class="bg-button w-52 mt-7">Заказать картину</button></div>
         </div>
+
         <div class="custom-navigation">
           <button @click="slide = 1" :class="{ active: slide === 1 }"></button>
           <button @click="slide = 2" :class="{ active: slide === 2 }"></button>
@@ -19,12 +21,13 @@
           <button @click="slide = 4" :class="{ active: slide === 4 }"></button>
         </div>
       </q-carousel-slide>
-      <q-carousel-slide :name="2" img-src="../assets/images/image2.png" class="flex items-center">
-        <div class="slide-content flex flex-cols items-center ">
-          <h1 class="text-white font-normal mb-4">Картины из ниток по фото</h1>
-          <p>Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p>
-          <button class="bg-button w-full mt-7">Заказать картину</button>
+      <q-carousel-slide :name="2" img-src="../assets/images/image2.png">
+        <div class="slide-content flex flex-col items-center justify-center gap-20 mt-20">
+          <div><h1 class="text-white font-normal mb-4">Картины из ниток по фото</h1>
+          <p>Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
+          <div><button class="bg-button w-52 mt-7">Заказать картину</button></div>
         </div>
+
         <div class="custom-navigation">
           <button @click="slide = 1" :class="{ active: slide === 1 }"></button>
           <button @click="slide = 2" :class="{ active: slide === 2 }"></button>
@@ -32,12 +35,13 @@
           <button @click="slide = 4" :class="{ active: slide === 4 }"></button>
         </div>
       </q-carousel-slide>
-      <q-carousel-slide :name="3" img-src="https://cdn.quasar.dev/img/parallax2.jpg" class="flex items-center">
-        <div class="slide-content flex flex-cols items-center ">
-          <h1 class="text-white font-normal mb-4">Картины из ниток по фото</h1>
-          <p>Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p>
-          <button class="bg-button w-full mt-7">Заказать картину</button>
+      <q-carousel-slide :name="3" img-src="../assets/images/image1.png">
+        <div class="slide-content flex flex-col items-center justify-center gap-20 mt-20">
+          <div><h1 class="text-white font-normal mb-4">Картины из ниток по фото</h1>
+          <p>Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
+          <div><button class="bg-button w-52 mt-7">Заказать картину</button></div>
         </div>
+
         <div class="custom-navigation">
           <button @click="slide = 1" :class="{ active: slide === 1 }"></button>
           <button @click="slide = 2" :class="{ active: slide === 2 }"></button>
@@ -45,12 +49,13 @@
           <button @click="slide = 4" :class="{ active: slide === 4 }"></button>
         </div>
       </q-carousel-slide>
-      <q-carousel-slide :name="4" img-src="https://cdn.quasar.dev/img/quasar.jpg" class="flex items-center">
-        <div class="slide-content flex flex-cols items-center ">
-          <h1 class="text-white font-normal mb-4">Картины из ниток по фото</h1>
-          <p>Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p>
-          <button class="bg-button w-full mt-7">Заказать картину</button>
+      <q-carousel-slide :name="4" img-src="../assets/images/image2.png">
+        <div class="slide-content flex flex-col items-center justify-center gap-20 mt-20">
+          <div><h1 class="text-white font-normal mb-4">Картины из ниток по фото</h1>
+          <p>Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
+          <div><button class="bg-button w-52 mt-7">Заказать картину</button></div>
         </div>
+
         <div class="custom-navigation">
           <button @click="slide = 1" :class="{ active: slide === 1 }"></button>
           <button @click="slide = 2" :class="{ active: slide === 2 }"></button>
@@ -65,7 +70,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 
-const slide = ref(1)
+const slide = ref(0)
 
 // Функция для переключения слайдов
 const switchSlide = () => {
@@ -93,6 +98,10 @@ watch(slide, () => {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.slide-image{
+  object-fit: contain;
 }
 
 .custom-navigation button {

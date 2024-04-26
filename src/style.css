@@ -3,6 +3,10 @@
   padding:0;
 }
 
+.wrapper{
+  max-width: 1180px;
+}
+
 .textcolor{
   color:#254446;
 }
@@ -41,6 +45,9 @@ header{
 
 #app{
   background-color: #ABD5D6;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .bg-button{
