@@ -10,7 +10,7 @@
                 <p v-if="open" class="ml-3 text-3xl font-normal font-sans textcolor">Меню</p>
               </div>
             </router-link>
-            <div class="hidden sm:ml-6 sm:block">
+            <div class="sm:ml-6 desktop-only mobile-hide">
               <div class="flex space-x-4">
                 <a v-for="item in navigation" :key="item.name" @click="handleNavigation(item)" 
                   class="textcolor hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer font-sans" 
@@ -29,6 +29,8 @@
               <XMarkIcon v-else class="block h-6 w-6 rounded-lg" aria-hidden="true" :class="{'textcolor': open }" />
             </DisclosureButton>
           </div>
+          <div class="absolute inset-y-0 right-0 flex items-center"><button class="w-full h-12 bg-white textcolor rounded-2xl description">ЗАКАЗАТЬ</button></div>
+          
         </div>
       </div>
 
@@ -58,7 +60,7 @@
       </DisclosurePanel>
     </Disclosure>
   </div>
-    <q-breadcrumbs separator="●" separator-color="blue-grey-5" active-color="teal-8" class="colorsbread ml-5 mt-5">
+    <q-breadcrumbs separator="●" separator-color="blue-grey-5" active-color="teal-8" class="colorsbread ml-5 mt-5 desktop-hide">
         <q-breadcrumbs-el label="Главная" icon="home" />
         <q-breadcrumbs-el label="" icon="widgets" />
     </q-breadcrumbs>
