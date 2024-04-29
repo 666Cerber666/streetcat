@@ -1,18 +1,102 @@
 <template>  
-    <q-layout>
+    <q-layout class="wrapper">
       <Header />
-      <div class="flex items-center w-full p-5">
-        <h2 class="mb-2">Генерация картины</h2>
-        <div class="w-full flex flex-col items-center bg-button justify-center text-center py-7 px-5 ">
-              <div class="w-full bg-image h-40 flex justify-center items-center"><button class="w-4/5 h-12 butGenerate rounded-3xl"><p class="textGenerate">ВСТАВЬТЕ ФОТО</p></button></div>
-                <p class="text-white font-bold">Вставьте своё фото для генерации</p>
-                <p class="text-white text-start">Ваши предыдущие генерации доступны ниже</p>
-          </div>
-        <div class="flex flex-col mt-4">
-          <div>
-            <p class="mb-4">Ваши генерации</p>
+      <div class="flex w-full flex-col items-center w-full mt-3">
 
-            <div class="w-screen overflow-x-hidden">
+        <div class="flex flex-col w-full desktop-only mobile-hide">
+          <div class="flex flex-nowrap justify-between">
+            <p class="mb-4">Генерация картины по фото</p>
+              <div class="flex flex-nowrap gap-3">
+                <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 12H5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 19L5 12L12 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </q-btn>
+
+                <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 5L19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </q-btn>
+              </div>
+          </div>
+        
+              <div class="w-full flex flex-nowrap gap-5 mt-5">
+                <div class="w-1/3 flex flex-col items-center bg-button justify-center text-center py-7 px-5 ">
+                  <div class="w-full bg-image h-40 flex justify-center items-center"><button class="w-4/5 h-12 butGenerate rounded-3xl"><p class="textGenerate">ВСТАВЬТЕ ФОТО</p></button></div>
+                    <p class="text-white font-bold">Вставьте своё фото для генерации</p>
+                    <p class="text-white text-start">Ваши предыдущие генерации доступны ниже</p>
+                </div>
+                <div class="w-2/3 flex flex-col items-center justify-center text-center block-wait">
+                  <div class="bg-white/50 w-3/4 h-12 text-center pt-3 rounded-3xl">ЗАГРУЗКА...</div>
+                </div>
+              </div>
+        </div>
+
+          <div class="w-full ml-0 pr-10 mobile-only desktop-hide">
+              <p class="mb-4">Генерация картины по фото</p>
+              <div class="w-full flex flex-col items-center bg-button justify-center text-center py-7 px-5 mt-3">
+                  <div class="w-full bg-image h-40 flex justify-center items-center">
+                    <button class="w-4/5 h-12 butGenerate rounded-3xl"><p class="textGenerate">ВСТАВЬТЕ ФОТО</p></button>
+                  </div>
+                    <p class="text-white font-bold">Вставьте своё фото для генерации</p>
+                    <p class="text-white text-start">Ваши предыдущие генерации доступны ниже</p>
+                </div>
+          </div>     
+
+        <div class="flex flex-col mt-4 p-5">
+          <div>
+            <div class="flex flex-nowrap justify-between w-full">
+              <p class="mb-4">Ваши генерации</p>
+                <div class="flex flex-nowrap gap-3 desktop-only">
+                  <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button" @click="scrollLeft"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 12H5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 19L5 12L12 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </q-btn>
+
+                  <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button" @click="scrollRight"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M12 5L19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                  </q-btn>
+                </div>
+          </div>
+
+            <div class="w-screen overflow-x-hidden mobile-only">
+              <div class="section">
+                <div class="section__item">
+                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
+                    <div class="absolute-bottom text-subtitle1 text-center">
+                      Открыть
+                    </div>
+                  </q-img>
+                </div>
+                <div class="section__item">
+                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
+                    <div class="absolute-bottom text-subtitle1 text-center">
+                      Открыть
+                    </div>
+                  </q-img>
+                </div>
+                <div class="section__item">
+                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
+                    <div class="absolute-bottom text-subtitle1 text-center">
+                      Открыть
+                    </div>
+                  </q-img>
+                </div>
+                <div class="section__item">
+                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
+                    <div class="absolute-bottom text-subtitle1 text-center">
+                      Открыть
+                    </div>
+                  </q-img>
+                </div>
+              </div>
+            </div>
+
+            <div class="w-full desktop-only mt-5">
               <div class="section">
                 <div class="section__item">
                   <q-img src="../assets/images/image1.png" class="w-72 h-48">
@@ -51,17 +135,26 @@
 
         </div>
       </div>
+      <Footer class="desktop-only"/>
     </q-layout>
   </template>
     
   <script setup lang="ts">
   import Header from '../components/Header.vue';
+  import Footer from '../components/Footer.vue';
 
   </script>
   
   <style scoped>
   .image {
     height: 320px;
+    border-radius: 10px;
+  }
+
+  .block-wait{
+    background-image: url('../assets/images/waiting.png');
+    background-position: contain;
+    background-repeat: no-repeat;
     border-radius: 10px;
   }
 

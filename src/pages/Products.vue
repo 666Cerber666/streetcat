@@ -1,5 +1,5 @@
 <template>  
-    <q-layout>
+    <q-layout class="wrapper">
       <Header />
       <div class="flex items-center w-full p-5">
         <h2 class="mb-2">Товары Street Cat</h2>
@@ -26,18 +26,28 @@
                 </q-list>
                 </q-btn-dropdown>
           </div>
-        <div class="flex flex-col gap-5 w-full mt-4 gap-5">
+        <div class="flex flex-col gap-5 w-full mt-4 gap-5 mobile-only">
             <template v-for="index in 7" :key="index">
                 <div class="image"></div>
                 <div><p>Картина 50x50</p></div>
             </template>
         </div>
+        <div class="grid grid-cols-3 gap-5 w-full mt-4 gap-5 desktop-only">
+            <template v-for="index in 9" :key="index">
+              <div class="flex flex-col gap-3">
+                <div class="image w-80"></div>
+                <div><p>Картина 50x50</p></div>
+              </div>
+            </template>
+        </div>
       </div>
+      <Footer/>
     </q-layout>
   </template>
     
   <script setup lang="ts">
   import Header from '../components/Header.vue';
+  import Footer from '../components/Footer.vue';
 
   const onItemClick = () => {
         // console.log('Clicked on an Item')
@@ -49,8 +59,9 @@
   .image {
     background-image: url('../assets/images/image2.png');
     background-position: center;
+    background-repeat: no-repeat;
     height: 200px;
-    border-radius: 10px;
+    border-radius: 18px;
   }
 
   .colorsbread{
