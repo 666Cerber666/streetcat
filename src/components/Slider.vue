@@ -9,8 +9,8 @@
     >
       <q-carousel-slide :name="1" img-src="../assets/images/image1.png">
         <div class="slide-content flex flex-col items-center justify-center gap-20 mt-20">
-          <div><h1 class="text-white font-normal mb-4">Картины из ниток по фото</h1>
-          <p>Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
+          <div><h1 class="text-white font-normal mb-4 textslide">Картины из ниток по фото</h1>
+          <p class="descslide">Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
           <div><button class="bg-button w-52 mt-7">Заказать картину</button></div>
         </div>
 
@@ -23,8 +23,8 @@
       </q-carousel-slide>
       <q-carousel-slide :name="2" img-src="../assets/images/image2.png">
         <div class="slide-content flex flex-col items-center justify-center gap-20 mt-20">
-          <div><h1 class="text-white font-normal mb-4">Картины из ниток по фото</h1>
-          <p>Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
+          <div><h1 class="text-white font-normal mb-4 textslide">Картины из ниток по фото</h1>
+          <p class="descslide">Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
           <div><button class="bg-button w-52 mt-7">Заказать картину</button></div>
         </div>
 
@@ -37,8 +37,8 @@
       </q-carousel-slide>
       <q-carousel-slide :name="3" img-src="../assets/images/image1.png">
         <div class="slide-content flex flex-col items-center justify-center gap-20 mt-20">
-          <div><h1 class="text-white font-normal mb-4">Картины из ниток по фото</h1>
-          <p>Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
+          <div><h1 class="text-white font-normal mb-4 textslide">Картины из ниток по фото</h1>
+          <p class="descslide">Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
           <div><button class="bg-button w-52 mt-7">Заказать картину</button></div>
         </div>
 
@@ -51,8 +51,8 @@
       </q-carousel-slide>
       <q-carousel-slide :name="4" img-src="../assets/images/image2.png">
         <div class="slide-content flex flex-col items-center justify-center gap-20 mt-20">
-          <div><h1 class="text-white font-normal mb-4">Картины из ниток по фото</h1>
-          <p>Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
+          <div><h1 class="text-white font-normal mb-4 textslide">Картины из ниток по фото</h1>
+          <p class="descslide">Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
           <div><button class="bg-button w-52 mt-7">Заказать картину</button></div>
         </div>
 
@@ -100,6 +100,14 @@ watch(slide, () => {
   transform: translateX(-50%);
 }
 
+.textslide{
+  font-family: Open Sans;
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 61.6px;
+  text-align: center;
+}
+
 .slide-image{
   object-fit: contain;
 }
@@ -126,8 +134,7 @@ h1{
   font-weight: 700;
   line-height: 1.2;
   text-align: center;
-  box-shadow: 0px 4px 4px 0px #000000A6;
-  text-shadow: 0px 4px 4px 0px #000000A6;
+  text-shadow: 8px 8px 4px rgba(0, 0, 0, 0.5);
 }
 
 p{
@@ -137,9 +144,11 @@ p{
   line-height: 1.5;
   text-align: center;
   color: #fff;
+  text-shadow: 8px 8px 4px rgba(0, 0, 0, 0.5);
 }
 
 .carousel-container{
   height:450px;
 }
+
 </style>

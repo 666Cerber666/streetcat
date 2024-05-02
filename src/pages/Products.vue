@@ -2,7 +2,7 @@
     <q-layout class="wrapper">
       <Header />
       <div class="flex items-center w-full p-5">
-        <h2 class="mb-2">Товары Street Cat</h2>
+        <h2 class="mb-2 textblock">Товары Street Cat</h2>
         <div class="w-full flex flex-col items-center justify-center text-center py-7">
             <q-btn-dropdown color="" label="Все" class="w-full bg-block rounded-md">
                 <q-list>
@@ -120,6 +120,14 @@
     background-position: center;
     border-radius: 10px;
   }
+
+  .textblock{
+  font-family: 'Open Sans', sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 50.4px;
+  text-align: left;
+}
 
   .butGenerate{
     background-color: #FFFFFFAD !important;

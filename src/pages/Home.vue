@@ -31,7 +31,7 @@
       <Slider />
       <div class="flex flex-col gap-5 w-full mt-4">
         <div class="flex flex-nowrap justify-between w-full">
-          <p class="mb-4">Отзывы наших покупателей</p>
+          <p class="mb-4 textblock">Варианты картин</p>
           <div class="flex flex-nowrap gap-3">
             <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button" @click="scrollLeft"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M19 12H5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -95,16 +95,16 @@
             </div>
         </div>
 
-        <div class="w-full flex flex-nowrap items-center justify-between bg-button-desktop bg-asset p-5 desktop-only">
+        <div class="w-full flex flex-nowrap items-center justify-between bg-button-desktop bg-asset p-5 desktop-only mb-14">
             <div class="w-1/4 bg-image py-10 h-40"></div>
-              <p class="text-white">Сгенерируй картинку со своим изображением</p>
-              <button class="w-1/4 h-12 bg-white textcolor rounded-2xl description">СГЕНЕРИРОВАТЬ</button>
+              <p class="text-white textgenerate">Сгенерируй картинку со своим изображением</p>
+              <button class="w-1/5 h-16 bg-aqua descslide text-white rounded-2xl description">СГЕНЕРИРОВАТЬ</button>
         </div>
       </div>
 
       <div class="flex flex-col gap-5 w-full mt-4">
         <div class="flex flex-nowrap justify-between w-full">
-          <p class="mb-4">Отзывы наших покупателей</p>
+          <p class="mb-4 textblock">Отзывы наших покупателей</p>
           <div class="flex flex-nowrap gap-3">
             <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button" @click="scrollLeft"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M19 12H5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -248,5 +248,20 @@ p {
   background-size: 100%;
   background-position: center;
   border-radius: 10px;
+}
+
+.textblock{
+  font-family: 'Open Sans', sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 50.4px;
+  text-align: left;
+}
+
+.textgenerate{
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 39.2px;
+  text-align: center;
 }
 </style>

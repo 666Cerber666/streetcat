@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Disclosure as="nav" class="bg-aqua relative z-50 rounded-tl-lg pr-2" v-slot="{ open }">
+    <Disclosure as="nav" class="bg-aqua relative z-50 rounded-tl-lg pr-2 pt-3" v-slot="{ open }">
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8" :class="{'border-green-aqua rounded-tl-lg' : open}">
         <div class="relative flex h-16 items-center">
           <div class="sm:items-stretch sm:justify-start flex items-center">
@@ -13,7 +13,7 @@
             <div class="sm:ml-6 desktop-only mobile-hide">
               <div class="flex space-x-4">
                 <a v-for="item in navigation" :key="item.name" @click="handleNavigation(item)" 
-                  class="textcolor hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer font-sans" 
+                  class="textcolor hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer font-sans textnavigation" 
                   :aria-current="item.current ? 'page' : undefined">{{ item.name }}
                 </a>
               </div>
@@ -29,7 +29,7 @@
               <XMarkIcon v-else class="block h-6 w-6 rounded-lg" aria-hidden="true" :class="{'textcolor': open }" />
             </DisclosureButton>
           </div>
-          <div class="absolute inset-y-0 right-0 flex items-center"><button class="w-36 h-14 bg-button textcolor rounded-2xl description desktop-only mobile-hide">ЗАКАЗАТЬ</button></div>
+          <div class="absolute inset-y-0 right-0 flex items-center"><button class="w-36 h-14 bg-button textcolor rounded-2xl description desktop-only mobile-hide textnavigation">ЗАКАЗАТЬ</button></div>
           
         </div>
       </div>
@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, watch } from 'vue'
+import { watch } from 'vue'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { useRouter } from 'vue-router';
@@ -112,6 +112,14 @@ const toggleMenu = () => {
   height: 100vh;
 }
 
+.textnavigation{
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  text-align: left;
+}
+
 .fixed {
   position: fixed;
   top: 0;
@@ -127,4 +135,9 @@ const toggleMenu = () => {
 .sm\\:block {
   display: block;
 }
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../assets/fonts/Lato-Light.ttf') format('truetype');
+  }
 </style>

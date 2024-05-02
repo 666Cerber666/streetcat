@@ -9,7 +9,7 @@
 
         <!-- Меню навигации -->
         <div>
-          <h2 class="text-lg font-semibold mb-4">КАРТА САЙТА</h2>
+          <h2 class="text-lg font-normal mb-4">КАРТА САЙТА</h2>
           <ul>
             <li class="my-3"><a href="#">Главная</a></li>
             <li class="my-3"><a href="#">О нас</a></li>
@@ -19,27 +19,38 @@
         </div>
 
         <!-- Адреса и номера компании -->
-        <div>
-          <h2 class="text-lg font-semibold mb-4">АДМИНИСТРАЦИЯ STREET CAT</h2>
-          <p>123 Улица, Город, Страна</p>
-          <p>+7 (123) 456-7890</p>
-          <p>info@example.com</p>
+        <div class="flex flex-col">
+          <h2 class="text-lg font-normal mb-4">АДМИНИСТРАЦИЯ STREET CAT</h2>
+          <div>
+            <p class="text-bold"><i class="fas fa-map-marker-alt"></i>Адрес StreetCat</p>
+            <p>c.Бритвино, Зеленодольский район, Республика Татарстан</p>
+          </div>
+          <div>
+            <p class="text-bold"><i class="fas fa-phone"></i>Телефон для связи</p>
+            <p>+7 (123) 456-7890</p>
+          </div>
+          <div>
+            <p class="text-bold"><i class="fas fa-envelope"></i>Email для связи</p>
+            <p>streeetca@mail.ru</p>
+          </div>
         </div>
 
         <!-- Соцсети -->
         <div>
-          <h2 class="text-lg font-semibold mb-4">СОЦИАЛЬНЫЕ СЕТИ</h2>
+          <h2 class="text-lg font-normal mb-4">СОЦИАЛЬНЫЕ СЕТИ</h2>
           <ul>
-            <li class="my-3"><a href="#"><i class="fab fa-facebook"></i> Telegram</a></li>
-            <li class="my-3"><a href="#"><i class="fab fa-twitter"></i> Whatsapp</a></li>
-            <li class="my-3"><a href="#"><i class="fab fa-instagram"></i> Vk</a></li>
+            <li class="my-3"><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+            <li class="my-3"><a href="#"><i class="fab fa-telegram"></i> Telegram</a></li>
+            <li class="my-3"><a href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a></li>
+            <li class="my-3"><a href="#"><i class="fab fa-vk"></i> Vk</a></li>
             <li class="my-3"><a href="#"><i class="fab fa-instagram"></i> Instagram*</a></li>
+            <li class="my-3"><i class="fas fa-ban"></i> Запрещенная на территории Российской Федерации организация</li>
           </ul>
         </div>
       </div>
 
       <!-- Copyright -->
-      <div class="text-center mt-8 pt-8 border-t-2 flex flex-nowrap justify-between">
+      <div class="mt-8 pt-8 border-t-2 flex flex-nowrap justify-between">
         <div class="w-2/3">
           <p>
             &copy; Street Cat 2024. Все права защищены. Любое копирование информации возможно только с согласия правообладателя ресурса.
@@ -53,3 +64,7 @@
     </div>
   </footer>
 </template>
+
+<style scoped>
+
+</style>

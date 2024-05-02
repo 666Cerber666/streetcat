@@ -15,6 +15,14 @@
   background-color: #254446;
 }
 
+.descslide{
+  font-family: 'Open Sans';
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  text-align: center;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -92,4 +100,9 @@ h1 {
   a:hover {
     color: #747bff;
   }
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../assets/fonts/OpenSans-Light.ttf') format('truetype');
 }
