@@ -19,7 +19,7 @@
         <div class="w-full flex flex-col items-center bg-button justify-center text-center p-5">
             <div class="w-full bg-image h-40"></div>
               <p class="text-white">Сгенерируй картинку со своим изображением</p>
-              <button class="w-full h-12 bg-white textcolor rounded-2xl description">СГЕНЕРИРОВАТЬ</button>
+              <button class="w-full h-12 bg-white textcolor rounded-2xl description" @click="showModal = true">СГЕНЕРИРОВАТЬ</button>
         </div>
       </div>
     </div>
@@ -33,13 +33,13 @@
         <div class="flex flex-nowrap justify-between w-full">
           <p class="mb-4 textblock">Варианты картин</p>
           <div class="flex flex-nowrap gap-3">
-            <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button" @click="scrollLeft"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M19 12H5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M12 19L5 12L12 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </q-btn>
 
-            <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button" @click="scrollRight"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M12 5L19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -98,7 +98,7 @@
         <div class="w-full flex flex-nowrap items-center justify-between bg-button-desktop bg-asset p-5 desktop-only mb-14">
             <div class="w-1/4 bg-image py-10 h-40"></div>
               <p class="text-white textgenerate">Сгенерируй картинку со своим изображением</p>
-              <button class="w-1/5 h-16 bg-aqua descslide text-white rounded-2xl description">СГЕНЕРИРОВАТЬ</button>
+              <button class="w-1/5 h-16 bg-aqua descslide text-white rounded-2xl description" @click="showModal = true">СГЕНЕРИРОВАТЬ</button>
         </div>
       </div>
 
@@ -106,13 +106,13 @@
         <div class="flex flex-nowrap justify-between w-full">
           <p class="mb-4 textblock">Отзывы наших покупателей</p>
           <div class="flex flex-nowrap gap-3">
-            <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button" @click="scrollLeft"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M19 12H5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M12 19L5 12L12 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </q-btn>
 
-            <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button" @click="scrollRight"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M12 5L19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -132,7 +132,6 @@
                   <div class="block-head flex items-center flex-nowrap p-5 gap-5"><div class="logo-user w-14 h-14"></div><div class="text-grey">99.99.2024 <br> <p>Анна Семенова</p></div></div>
                   <div class="block-content text-black p-5">Этот товар просто потрясающий! Я влюбилась в уникальный дизайн и красочные цвета. Картинка в стиле String Art выглядит очень стильно и оригинально. Рекомендую всем, кто ценит красоту и оригинальность!</div>
                 </div>
-              
           </div>
 
           <!-- Footer -->
@@ -140,7 +139,7 @@
           
         </div>
     </div>
-
+    <transition><Modal v-if="showModal" @close="showModal = false" /></transition>
   </q-layout>
 </template>
   
@@ -148,7 +147,8 @@
 import Header from '../components/Header.vue';
 import Slider from '../components/Slider.vue';
 import Footer from '../components/Footer.vue';
-import { defineComponent } from 'vue';
+import Modal from '../components/Modal.vue';
+import { defineComponent, ref } from 'vue';
 
 const TextInCard = [
   {
@@ -172,6 +172,8 @@ const TextInCard = [
     description: "Приемлимые цены",
   },
 ];
+
+let showModal = ref(false);
 
 defineComponent({
   name: 'Home',
