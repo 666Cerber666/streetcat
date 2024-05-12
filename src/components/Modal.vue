@@ -7,35 +7,69 @@
           </svg>
       </span>
       <form class="flex flex-col items-center justify-center w-full" @submit.prevent="redirectToPageLoader">
-        <label class="label">Введите код для генерации</label>
-        <div class="flex otp-container">
-          <div class="flex items-center otp-input-wrapper" v-for="(index, i) in 6" :key="index">
-            <input v-model="otp[i]" @input="focusNextInput(i)" ref="otpInput" type="text" inputmode="numeric" min="0" max="9" maxlength="1" pattern="[0-9]" class="otp-input">
+
+        <!-- Раздел для ввода кода для генерации -->
+        <div class="flex flex-col items-center justify-center w-full" v-if="modalPage === 0">
+          <label class="label">Введите код для генерации</label>
+          <div class="flex otp-container">
+            <div class="flex items-center otp-input-wrapper" v-for="(index, i) in 6" :key="index">
+              <input v-model="otp[i]" @input="focusNextInput(i)" ref="otpInput" type="text" inputmode="numeric" min="0" max="9" maxlength="1" pattern="[0-9]" class="otp-input">
+            </div>
           </div>
         </div>
-        <div v-if="isOtpInputFilled">
-          <label class="label">Загрузите вашу фотографию для генерации</label>
-          <input type="file" @change="previewImage" accept="image/*" class="file-input" required>
 
+        <!-- Раздел для выбора размера изображения -->
+        <div v-if="modalPage === 1">
           <label class="label">Какой размер сделаем картинке?</label>
-          <div class="flex w-full gap-3">
-            <label v-for="size in imageSizes" :key="size" class="radio-label cursor-pointer">
-              <input type="radio" name="imageSize" :value="size" class="radio-btn">
-              {{ size }}
-            </label>
+          <div class="flex flex-col w-full gap-3 mt-20">
+            <div v-for="(size, index) in imageSizes" :key="size" class="flex w-full h-14 items-center justify-between border-4 border-teal-700 px-2">
+              <label class="radio-label cursor-pointer">
+                {{ size }}
+              </label>
+              <label class="toggler-wrapper style-3">
+                <input type="radio" name="imageSize" v-model="selectedSize" :value="size">
+                <div class="toggler-slider">
+                  <div class="toggler-knob"></div>
+                </div>
+              </label>
+            </div>
           </div>
-          <div class="w-full flex flex-col items-center">
-            <img v-if="imagePreview" :src="imagePreview" alt="Preview" class="preview-image">
-            <input type="range" min="0" max="100" v-model="imageSlider" v-if="imagePreview" class="w-2/5" @input="changeImagePreview">
-          </div>
-          <input type="submit" value="СГЕНЕРИРОВАТЬ" class="submit-btn">
+        </div>
+
+        <!-- Раздел для загрузки фотографии для генерации -->
+        <div v-if="modalPage === 2" class="flex flex-col items-center">
+          <label class="label">Загрузите вашу фотографию для генерации</label>
+          <input type="file" @change="handleFileUpload" accept="image/*" class="file-input">
+          <cropper
+            class="cropper"
+            :stencil-component="$options.components.CircleStencil"
+            :src="img"
+            :stencil-props="{
+              aspectRatio: 10/12,
+              resizable: true,
+            }"
+            @change="change"
+            ref="cropper"
+          />
+          <input type="submit" value="СГЕНЕРИРОВАТЬ" @click="redirectToPageLoader" class="submit-btn">
+        </div>
+
+        <!-- Нижние кнопки для навигации между страницами модального окна -->
+        <div class="flex justify-between mt-20 w-full">
+          <q-btn class="text-black bg-aqua" @click="modalPage = modalPage - 1" v-show="modalPage > 0">Отмена</q-btn>
+          <q-btn class="text-black bg-aqua" @click="modalPage = modalPage + 1" v-show="modalPage < 2">Далее</q-btn>
         </div>
       </form>
     </div>
   </div>
 </template>
 
+
 <script>
+import { Cropper, CircleStencil } from 'vue-advanced-cropper'
+import 'vue-advanced-cropper/dist/style.css';
+import { useRouter } from 'vue-router';
+
 export default {
   data() {
     return {
@@ -43,7 +77,15 @@ export default {
       imagePreview: '',
       imageNextPreview: '../assets/images/image1.png',
       imageSlider: 0,
-      imageSizes: ['250x250', '300x300', '400x400', '500x500', '600x600']
+      modalPage: 0,
+      imageSizes: ['Набор из пинов 200', 'Набор из пинов 220', 'Набор из пинов 240', 'Набор из пинов 260', 'Набор из пинов 280'],
+      selectedSize: null,
+      selection: null,
+      selecting: false,
+      startX: 0,
+      startY: 0,
+      img: null,
+      router: useRouter(),
     };
   },
   computed: {
@@ -51,9 +93,12 @@ export default {
       return this.otp.every(input => input !== '');
     }
   },
+  components: {
+    Cropper, CircleStencil
+  },
   methods: {
     redirectToPageLoader() {
-      // Логика перенаправления на страницу PageLoader
+      this.router.push('/Loading');
     },
     focusNextInput(index) {
       if (this.otp[index] && index < this.otp.length - 1) {
@@ -70,18 +115,44 @@ export default {
         reader.readAsDataURL(file);
       }
     },
-    changeImagePreview() {
-      // Обновление пути к следующему изображению в зависимости от значения ползунка
-      const nextImageIndex = this.imageSlider + 1;
-      if (nextImageIndex < this.imageSizes.length) {
-        // Здесь можно добавить логику для загрузки нового изображения
-        // Например, если у вас есть список изображений, вы можете выбрать следующее изображение по индексу
-        this.imageNextPreview = `../assets/images/image${nextImageIndex + 1}.png`;
+    nextModalPage() {
+      this.modalPage += 1;  
+    },
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.img = reader.result;
+          this.$refs.cropper.setImage(reader.result); // Установка изображения в cropper
+        };
+        reader.readAsDataURL(file);
       }
-    }
+    },
+    change(/*croppedImage*/) {
+      // Здесь вы можете использовать обрезанное изображение
+    },
+    startSelection(event) {
+      this.selecting = true;
+      this.startX = event.offsetX;
+      this.startY = event.offsetY;
+    },
+    moveSelection(event) {
+      if (this.selecting) {
+        const width = Math.abs(event.offsetX - this.startX);
+        const height = Math.abs(event.offsetY - this.startY);
+        const left = Math.min(event.offsetX, this.startX);
+        const top = Math.min(event.offsetY, this.startY);
+        this.selection = { width, height, left, top };
+      }
+    },
+    endSelection() {
+      this.selecting = false;
+    },
   }
 };
 </script>
+
 
 <style scoped>
 .modal {
@@ -133,11 +204,6 @@ input{
   border: 1px solid #ccc;
   background-color: none;
   border-radius: 5px;
-}
-
-.file-input {
-  width: 100%;
-  margin-top: 10px;
 }
 
 .submit-btn {
@@ -199,25 +265,86 @@ label{
   box-shadow: 0 0 5px rgba(10, 67, 71, 0.5); /* Добавляем тень при фокусе */
 }
 
-.radio-label {
-  display: flex;
-  align-items: center;
+.file-input {
+  border: none;
+  margin-bottom:15px;
+  position: relative;
 }
 
-.radio-btn {
-  margin-right: 8px; /* Расстояние между радиокнопкой и текстом */
-  cursor: pointer; /* Показывает, что радиокнопка кликабельна */
+.file-input input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
 }
 
-.radio-label:hover {
-  color: #2e6468; /* Изменение цвета текста при наведении */
+.preview-image {
+  width: 100%;
+  height: auto;
 }
 
-.preview-image, .next-preview-image {
+.selection-box {
+  position: absolute;
   border: 2px solid #2e6468;
   border-radius: 50%;
-  width: 350px;
-  height: 350px;
-  margin-top: 20px; /* Добавляем отступ между текущим и следующим изображением */
+  pointer-events: none;
+}
+
+.toggler-wrapper.style-3 input[type="radio"]:checked+.toggler-slider .toggler-knob {
+  left: calc(100% - 19px - 3px);
+}
+
+.toggler-wrapper.style-3 .toggler-knob {
+  width: calc(25px + 6px);
+  height: calc(25px + 6px);
+  border-radius: 50%;
+  left: -3px;
+  top: -3px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 2px 6px rgba(153, 153, 153, 0.75);
+  box-shadow: 0 2px 6px rgba(153, 153, 153, 0.75);
+}
+
+.toggler-wrapper {
+  display: block;
+  width: 45px;
+  height: 25px;
+  cursor: pointer;
+  position: relative;
+}
+
+.toggler-wrapper input[type="radio"] {
+  display: none;
+}
+
+.toggler-wrapper input[type="radio"]:checked+.toggler-slider {
+  background-color: black;
+}
+
+.toggler-wrapper .toggler-slider {
+  background-color: #ccc;
+  position: absolute;
+  border-radius: 100px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.toggler-wrapper .toggler-knob {
+  position: absolute;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.cropper {
+	height: 400px;
+  width: 100%;
+	background: #DDD;
 }
 </style>

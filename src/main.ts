@@ -6,6 +6,9 @@ import { Quasar } from 'quasar'
 import { createRouter, createWebHistory } from 'vue-router'
 import routes from './router' // Используем расширение .ts по умолчанию
 
+import { Cropper, CircleStencil } from 'vue-advanced-cropper'
+import 'vue-advanced-cropper/dist/style.css';
+
 // Import icon libraries
 import '@quasar/extras/material-icons/material-icons.css'
 
@@ -30,6 +33,10 @@ const myApp = createApp(App)
 
 // Используем Vue Router в приложении
 myApp.use(router)
+
+myApp.component(
+  'Cropper', Cropper
+)
 
 // Используем Quasar
 myApp.use(Quasar, {
