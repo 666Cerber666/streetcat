@@ -37,13 +37,17 @@
         </div>
 
         <!-- Раздел для загрузки фотографии для генерации -->
-        <div v-if="modalPage === 2" class="flex flex-col items-center">
+        <div v-if="modalPage === 2" class="flex flex-col items-center w-full">
           <label class="label">Загрузите вашу фотографию для генерации</label>
           <input type="file" @change="handleFileUpload" accept="image/*" class="file-input">
           <cropper
-            class="cropper"
+            class="cropper w-full"
             :stencil-component="$options.components.CircleStencil"
             :src="img"
+            :canvas="{
+              height: 256,
+              width: 256
+            }"
             :stencil-props="{
               aspectRatio: 10/12,
               resizable: true,
@@ -51,7 +55,7 @@
             @change="change"
             ref="cropper"
           />
-          <input type="submit" value="СГЕНЕРИРОВАТЬ" @click="redirectToPageLoader" class="submit-btn">
+          <input type="submit" value="СГЕНЕРИРОВАТЬ" @click="redirectToPageLoader" class="submit-btn w-full">
         </div>
 
         <!-- Нижние кнопки для навигации между страницами модального окна -->
