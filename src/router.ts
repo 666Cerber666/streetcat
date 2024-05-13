@@ -4,6 +4,7 @@ import Home from './pages/Home.vue';
 import GeneratePicture from './pages/GeneratePicture.vue';
 import Products from './pages/Products.vue';
 import LoadingPage from './pages/PageLoader.vue';
+import DoneImageGenerate from './pages/DoneImageGenerate.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -25,6 +26,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/Loading',
     name: 'Loading...',
     component: LoadingPage,
+  },
+  {
+    path: '/DoneImageGenerate',
+    name: 'DoneImage',
+    component: DoneImageGenerate,
   }
 ];
 
