@@ -7,13 +7,12 @@
           </svg>
       </span>
       <form class="flex flex-col items-center justify-center w-full" @submit.prevent="redirectToPageLoader">
-
         <!-- Раздел для ввода кода для генерации -->
         <div class="flex flex-col items-center justify-center w-full" v-if="modalPage === 0">
           <label class="label">Введите код для генерации</label>
           <div class="flex otp-container">
             <div class="flex items-center otp-input-wrapper" v-for="(index, i) in 6" :key="index">
-              <input v-model="otp[i]" @input="focusNextInput(i)" ref="otpInput" type="text" inputmode="numeric" min="0" max="9" maxlength="1" pattern="[0-9]" class="otp-input">
+              <input v-model="otp[i]" @input="focusNextInput(i)" ref="otpInput" type="text" inputmode="numeric" min="0" max="9" maxlength="1" pattern="[0-9]" class="otp-input" required>
             </div>
           </div>
         </div>
@@ -27,7 +26,7 @@
                 {{ size }}
               </label>
               <label class="toggler-wrapper style-3">
-                <input type="radio" name="imageSize" v-model="selectedSize" :value="size">
+                <input type="radio" name="imageSize" v-model="selectedSize" :value="size" required>
                 <div class="toggler-slider">
                   <div class="toggler-knob"></div>
                 </div>
@@ -55,13 +54,20 @@
             @change="change"
             ref="cropper"
           />
-          <input type="submit" value="СГЕНЕРИРОВАТЬ" @click="redirectToPageLoader" class="submit-btn w-full">
+          <input type="submit" value="СГЕНЕРИРОВАТЬ" class="submit-btn w-full" :disabled="!isFormValid">
+
+          <div v-if="showGeneratedImage">
+            <div class="container">
+              <img :src="generatedImageURL" alt="Generated Image">
+              <a :href="generatedImageURL" download="generated_image.png">Скачать изображение</a>
+            </div>
+          </div>
         </div>
 
         <!-- Нижние кнопки для навигации между страницами модального окна -->
         <div class="flex justify-between mt-20 w-full">
           <q-btn class="text-black bg-aqua" @click="modalPage = modalPage - 1" v-show="modalPage > 0">Отмена</q-btn>
-          <q-btn class="text-black bg-aqua" @click="modalPage = modalPage + 1" v-show="modalPage < 2">Далее</q-btn>
+          <q-btn class="text-black bg-aqua" @click="modalPage = modalPage + 1" v-show="modalPage < 2 && isFormValid">Далее</q-btn>
         </div>
       </form>
     </div>
@@ -73,6 +79,7 @@
 import { Cropper, CircleStencil } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 export default {
   data() {
@@ -90,25 +97,66 @@ export default {
       startY: 0,
       img: null,
       router: useRouter(),
+      selectedFile: null,
+      generatedImage: null,
+      showGeneratedImage: false
     };
   },
   computed: {
     isOtpInputFilled() {
       return this.otp.every(input => input !== '');
+  },
+    generatedImageURL() {
+    if (this.generatedImage) {
+      return URL.createObjectURL(this.generatedImage);
+    } else {
+      return null;
     }
+  },
+    isFormValid() {
+        if (this.modalPage === 0) {
+          return this.isOtpInputFilled;
+        } else if (this.modalPage === 1) {
+          return this.selectedSize !== null;
+        } else if (this.modalPage === 2) {
+          return this.img !== null;
+        }
+        return false;
+  }
   },
   components: {
     Cropper, CircleStencil
   },
   methods: {
     redirectToPageLoader() {
-      this.router.push('/Loading');
-    },
+  const formData = new FormData();
+  formData.append('photo', this.selectedFile);
+
+  // Отправка файла на сервер с использованием запроса fetch
+  fetch('http://92.39.213.116:8093/api/v1/generate/', {
+    method: 'POST',
+    body: formData
+  })
+  .then(async response => {
+    const blob = await response.blob();
+    const file = new File([blob], 'generated_image.png', { type: 'image/png' });
+    this.generatedImage = file;
+
+    // Отображение изображения на сайте
+    this.showGeneratedImage = true;
+    console.log(this.generatedImage);
+  })
+  .catch(error => {
+    // Обработка ошибки
+  });
+
+},
     focusNextInput(index) {
       if (this.otp[index] && index < this.otp.length - 1) {
         this.$refs.otpInput[index + 1].focus();
       }
     },
+
     previewImage(event) {
       const file = event.target.files[0];
       if (file) {
@@ -130,6 +178,7 @@ export default {
           this.img = reader.result;
           this.$refs.cropper.setImage(reader.result); // Установка изображения в cropper
         };
+        this.selectedFile = file;
         reader.readAsDataURL(file);
       }
     },
@@ -261,6 +310,23 @@ label{
   border: 1px solid #ccc; /* Стилизуйте границу */
   border-radius: 5px; /* Скругление углов */
 }
+
+a {
+  padding: 5px 10px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  width: 25%;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 18px;
+  background-color:#254446;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 
 /* Пример стилей при фокусе */
 .otp-input:focus {

@@ -14,6 +14,7 @@
     "@quasar/app": "^3.3.3",
     "@quasar/extras": "^1.16.11",
     "autoprefixer": "^10.4.19",
+    "axios": "^1.6.8",
     "postcss": "^8.4.38",
     "quasar": "^2.15.4",
     "swiper": "^8.4.7",
