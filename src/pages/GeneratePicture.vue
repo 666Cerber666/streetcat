@@ -23,7 +23,7 @@
         
               <div class="w-full flex flex-nowrap gap-5 mt-5">
                 <div class="w-1/3 flex flex-col items-center bg-button justify-center text-center py-7 px-5 ">
-                  <div class="w-full bg-image h-40 flex justify-center items-center"><button class="w-4/5 h-12 butGenerate rounded-3xl" @click="showModal = true"><p class="textGenerate">ВСТАВЬТЕ ФОТО</p></button></div>
+                  <div class="w-full bg-image h-40 flex justify-center items-center"><button class="w-4/5 h-12 butGenerate rounded-3xl" @click="GoToGenerate"><p class="textGenerate">ВСТАВЬТЕ ФОТО</p></button></div>
                     <p class="text-white font-bold textgenerateblock">Вставьте своё фото для генерации</p>
                     <p class="text-white text-start">Ваши предыдущие генерации доступны ниже</p>
                 </div>
@@ -37,7 +37,7 @@
               <p class="mb-4">Генерация картины по фото</p>
               <div class="w-full flex flex-col items-center bg-button justify-center text-center py-7 px-5 mt-3">
                   <div class="w-full bg-image h-40 flex justify-center items-center">
-                    <button class="w-4/5 h-12 butGenerate rounded-3xl" @click="showModal = true"><p class="textGenerate">ВСТАВЬТЕ ФОТО</p></button>
+                    <button class="w-4/5 h-12 butGenerate rounded-3xl" @click="GoToGenerate"><p class="textGenerate">ВСТАВЬТЕ ФОТО</p></button>
                   </div>
                     <p class="text-white font-bold">Вставьте своё фото для генерации</p>
                     <p class="text-white text-start">Ваши предыдущие генерации доступны ниже</p>
@@ -136,17 +136,19 @@
         </div>
       </div>
       <Footer class="desktop-only"/>
-      <transition><Modal v-if="showModal" @close="showModal = false" /></transition>
     </q-layout>
   </template>
     
   <script setup lang="ts">
   import Header from '../components/Header.vue';
   import Footer from '../components/Footer.vue';
-  import Modal from '../components/Modal.vue';
-  import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
 
-  let showModal = ref(false);
+  const router = useRouter();
+
+  const GoToGenerate = () => {
+    router.push({ name: 'FormGeneratePicture' })
+  }
 
   </script>
   

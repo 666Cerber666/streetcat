@@ -19,7 +19,7 @@
         <div class="w-full flex flex-col items-center bg-button justify-center text-center p-5">
             <div class="w-full bg-image h-40"></div>
               <p class="text-white">Сгенерируй картинку со своим изображением</p>
-              <button class="w-full h-12 bg-white textcolor rounded-2xl description" @click="showModal = true">СГЕНЕРИРОВАТЬ</button>
+              <button class="w-full h-12 bg-white textcolor rounded-2xl description" @click="GoToGenerate">СГЕНЕРИРОВАТЬ</button>
         </div>
       </div>
     </div>
@@ -98,7 +98,7 @@
         <div class="w-full flex flex-nowrap items-center justify-between bg-button-desktop bg-asset p-5 desktop-only mb-14">
             <div class="w-1/4 bg-image py-10 h-40"></div>
               <p class="text-white textgenerate">Сгенерируй картинку со своим изображением</p>
-              <button class="w-1/5 h-16 bg-aqua descslide text-white rounded-2xl description" @click="showModal = true">СГЕНЕРИРОВАТЬ</button>
+              <button class="w-1/5 h-16 bg-aqua descslide text-white rounded-2xl description" @click="GoToGenerate">СГЕНЕРИРОВАТЬ</button>
         </div>
       </div>
 
@@ -147,8 +147,14 @@
 import Header from '../components/Header.vue';
 import Slider from '../components/Slider.vue';
 import Footer from '../components/Footer.vue';
-import Modal from '../components/Modal.vue';
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const GoToGenerate = () => {
+  router.push({ name: 'FormGeneratePicture' })
+}
 
 const TextInCard = [
   {
@@ -172,8 +178,6 @@ const TextInCard = [
     description: "Приемлимые цены",
   },
 ];
-
-let showModal = ref(false);
 
 defineComponent({
   name: 'Home',

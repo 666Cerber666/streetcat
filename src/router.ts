@@ -5,6 +5,7 @@ import GeneratePicture from './pages/GeneratePicture.vue';
 import Products from './pages/Products.vue';
 import LoadingPage from './pages/PageLoader.vue';
 import DoneImageGenerate from './pages/DoneImageGenerate.vue';
+import FormGeneratePicture from './pages/FormGeneratePicture.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -31,6 +32,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/DoneImageGenerate',
     name: 'DoneImage',
     component: DoneImageGenerate,
+  },
+  {
+    path: '/FormGeneratePicture',
+    name: 'FormGeneratePicture',
+    component: FormGeneratePicture,
   }
 ];
 

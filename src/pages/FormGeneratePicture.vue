@@ -1,12 +1,14 @@
 <template>
-  <div class="modal" @click="$emit('close')">
-    <div class="modal-content" @click.stop>
-      <span class="close" @click="$emit('close')">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-      </span>
-      <form class="flex flex-col items-center justify-center w-full" @submit.prevent="redirectToPageLoader">
+  <q-layout class="wrapper flex flex-col justify-center items-end px-2">
+    <q-btn class="w-12 h-12 mt-2 mr-2 bg-block float-right rounded-xl text-center flex items-center justify-center">
+      <span class="close" @click="goToHomePage">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+    </span>
+    </q-btn>
+    
+      <form class="flex flex-col items-center justify-center w-full px-3 bg-block mt-20 rounded-xl py-3" @submit.prevent="redirectToPageLoader">
         <!-- Раздел для ввода кода для генерации -->
         <div class="flex flex-col items-center justify-center w-full" v-if="modalPage === 0">
           <label class="label">Введите код для генерации</label>
@@ -22,7 +24,7 @@
           <label class="label">Какой размер сделаем картинке?</label>
           <div class="flex flex-col w-full gap-3 mt-20">
             <div v-for="(size, index) in imageSizes" :key="size" class="flex w-full h-14 items-center justify-between border-4 border-teal-700 px-2">
-              <label class="radio-label cursor-pointer">
+              <label class="radio-label cursor-pointer text-white">
                 {{ size }}
               </label>
               <label class="toggler-wrapper style-3">
@@ -36,11 +38,11 @@
         </div>
 
         <!-- Раздел для загрузки фотографии для генерации -->
-        <div v-if="modalPage === 2" class="flex flex-col items-center w-full">
+        <div v-if="modalPage === 2" class="flex flex-col items-center w-full px-3">
           <label class="label">Загрузите вашу фотографию для генерации</label>
           <input type="file" @change="handleFileUpload" accept="image/*" class="file-input">
           <cropper
-            class="cropper w-full"
+            class="cropper w-full px-3"
             :stencil-component="$options.components.CircleStencil"
             :src="img"
             :canvas="{
@@ -66,12 +68,11 @@
 
         <!-- Нижние кнопки для навигации между страницами модального окна -->
         <div class="flex justify-between mt-20 w-full">
-          <q-btn class="text-black bg-aqua" @click="modalPage = modalPage - 1" v-show="modalPage > 0">Отмена</q-btn>
-          <q-btn class="text-black bg-aqua" @click="modalPage = modalPage + 1" v-show="modalPage < 2 && isFormValid">Далее</q-btn>
+          <div><q-btn class="text-white bg-aqua h-10 w-28" @click="modalPage = modalPage - 1" v-show="modalPage > 0">Отмена</q-btn></div>
+          <q-btn class="text-white bg-aqua h-10 w-28" @click="modalPage = modalPage + 1" v-show="modalPage < 2 && isFormValid">Далее</q-btn>
         </div>
       </form>
-    </div>
-  </div>
+  </q-layout>
 </template>
 
 
@@ -128,29 +129,12 @@ export default {
     Cropper, CircleStencil
   },
   methods: {
+    goToHomePage() {
+      this.$router.push('/');
+    },
     redirectToPageLoader() {
-  const formData = new FormData();
-  formData.append('photo', this.selectedFile);
-
-  // Отправка файла на сервер с использованием запроса fetch
-  fetch('http://92.39.213.116:8093/api/v1/generate/', {
-    method: 'POST',
-    body: formData
-  })
-  .then(async response => {
-    const blob = await response.blob();
-    const file = new File([blob], 'generated_image.png', { type: 'image/png' });
-    this.generatedImage = file;
-
-    // Отображение изображения на сайте
-    this.showGeneratedImage = true;
-    console.log(this.generatedImage);
-  })
-  .catch(error => {
-    // Обработка ошибки
-  });
-
-},
+      this.$router.push({name: 'Loading...'});
+    },
     focusNextInput(index) {
       if (this.otp[index] && index < this.otp.length - 1) {
         this.$refs.otpInput[index + 1].focus();
@@ -242,12 +226,14 @@ input{
 }
 
 .close:hover {
-  color: black;
+  color: white;
 }
 
 .label {
-  font-size: 18px;
+  font-size: 24px;
   margin-bottom: 10px;
+  margin-top:20px;
+  color:white;
 }
 
 .input {
@@ -264,8 +250,8 @@ input{
   margin-top: 20px;
   padding: 10px;
   font-size: 18px;
-  background-color:#254446;
   color: white;
+  background-color:#ABD5D6;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -276,19 +262,16 @@ input{
   margin-top: 20px;
   padding: 10px;
   font-size: 18px;
-  background-color:#254446;
+  background-color:#ABD5D6;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-label{
-  color:black;
-}
-
 .submit-btn:hover {
-  background-color:#2e6468;
+  transition: ease-in-out 0.2s;
+  background-color:#62a9aa;
 }
 
 .otp-container {
@@ -303,8 +286,8 @@ label{
 }
 
 .otp-input {
-  width: 30px; /* Регулируйте ширину input'а */
-  height: 30px; /* Регулируйте высоту input'а */
+  width: 40px; /* Регулируйте ширину input'а */
+  height: 40px; /* Регулируйте высоту input'а */
   font-size: 16px; /* Регулируйте размер шрифта */
   text-align: center; /* Выравнивание текста по центру */
   border: 1px solid #ccc; /* Стилизуйте границу */
@@ -391,7 +374,7 @@ a {
 }
 
 .toggler-wrapper input[type="radio"]:checked+.toggler-slider {
-  background-color: black;
+  background-color: rgb(26, 95, 104);
 }
 
 .toggler-wrapper .toggler-slider {
