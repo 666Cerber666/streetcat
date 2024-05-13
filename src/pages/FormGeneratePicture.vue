@@ -56,6 +56,37 @@
             @change="change"
             ref="cropper"
           />
+          <div class="mt-10 flex flex-col gap-3">
+            <span class="text-white text-xl">
+              Мы подобрали оптимальные параметры для генерации вашей картины, но вы всегда сможете их изменить
+            </span>
+            
+            <!-- Количество нитей -->
+            <label class="text-white text-2xl">
+              Количество нитей: <span class="text-3xl">{{ threadCount }}</span>
+            </label>
+            <div class="Range Range__large h-25">
+              <input id="RangeLarge" name="RangeLarge" type="range" min="1000" max="5000" default="2000" class="w-full" v-model="threadCount">
+            </div>
+
+            <!-- Разрешение -->
+            <label class="text-white text-2xl">
+              Разрешение: <span class="text-3xl">{{ resolution }}</span>
+            </label>
+            <div class="Range Range__large h-25">
+              <input id="RangeLarge" name="RangeLarge" type="range" min="15" max="50" default="25" class="w-full" v-model="resolution">
+            </div>
+
+            <!-- Толщина нити -->
+            <label class="text-white text-2xl">
+              Толщина нити: <span class="text-3xl">{{ threadThickness }}</span>
+            </label>
+            <div class="Range Range__large h-25">
+              <input id="RangeLarge" name="RangeLarge" type="range" min="10" max="50" default="30" class="w-full" v-model="threadThickness">
+            </div>
+
+          </div>
+
           <input type="submit" value="СГЕНЕРИРОВАТЬ" class="submit-btn w-full" :disabled="!isFormValid">
 
           <div v-if="showGeneratedImage">
@@ -80,6 +111,7 @@
 import { Cropper, CircleStencil } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css';
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 import axios from 'axios';
 
 export default {
@@ -100,7 +132,10 @@ export default {
       router: useRouter(),
       selectedFile: null,
       generatedImage: null,
-      showGeneratedImage: false
+      showGeneratedImage: false,
+      threadCount: ref(2000),
+      resolution: ref(25),
+      threadThickness: ref(30)
     };
   },
   computed: {
@@ -399,5 +434,88 @@ a {
 	height: 400px;
   width: 100%;
 	background: #DDD;
+}
+
+/* ----------------
+    Range input
+   ---------------- */
+
+   .Range {
+  display: flex;
+  flex-direction: column-reverse;
+  margin-bottom: 1rem;
+}
+
+.Range input[type="range"] {
+  appearance: none;
+  height: 2rem;
+  border-radius: 1rem;
+  padding: .5rem;
+  background-image: url('../assets/images/range_bg.gif');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.Range input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  cursor: pointer;
+  transition: .5s;
+  transition-timing-function: cubic-bezier(.73,2,.25,-0.7);
+}
+
+.Range input[type="range"]::-moz-range-thumb {
+  appearance: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.Range input[type="range"]:active::-webkit-slider-thumb {
+  transition-timing-function: linear;
+  transform: scale(1.3, 0.7);
+}
+.Range input[type="range"]:active::-moz-range-thumb {
+  animation: none;
+  transform: scale(1.3, 0.7);
+}
+
+.Range_row {
+  @media (min-width: 712px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    
+    .Range {
+      width: calc(50% - .5rem);
+      margin-bottom: 0;
+    }
+  }
+}
+
+.Range input[type="range"]::-moz-range-thumb {
+  aspect-ratio: 1 / 1;
+  border: 0.1rem solid #fff;
+  border-radius: 50%;
+  background: radial-gradient(circle at 70% 30%, #fff, transparent 25%),
+    radial-gradient(circle at 60% 55%, transparent 60%, rgba(255, 0, 255, 0.8) 100%),
+    radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 255, 255, 0.2) 60%, transparent 68%),
+    radial-gradient(circle at 50% 55%, transparent 35%, rgba(255, 255, 0, 0.2) 45%, transparent 55%);
+}
+
+.Range input[type="range"]::-webkit-slider-thumb,
+.Color input::-webkit-color-swatch {
+  aspect-ratio: 1 / 1;
+  border: 0.1rem solid #fff;
+  border-radius: 50%;
+  background: radial-gradient(circle at 70% 30%, #fff, rgba(0,0,0,0) 25%),
+    radial-gradient(circle at 60% 55%, rgba(0,0,0,0) 60%, rgba(255, 0, 255, 0.8) 100%),
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 40%, rgba(0, 255, 255, 0.2) 60%, rgba(0,0,0,0) 68%),
+    radial-gradient(circle at 50% 55%, rgba(0,0,0,0) 35%, rgba(255, 255, 0, 0.2) 45%, rgba(0,0,0,0) 55%);
 }
 </style>
