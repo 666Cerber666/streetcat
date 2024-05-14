@@ -8,8 +8,20 @@
             <div class="flex gap-5">
                 <q-btn class="bg-block">Сохранить картинку</q-btn>
                 <q-btn class="bg-block">Скачать инструкцию</q-btn>
-                <q-btn class="bg-block">На главную</q-btn>
+                <q-btn class="bg-block" @click="goToPageInstructions">Приступить к сборке</q-btn>
             </div>
         </div>
     </q-layout>
 </template>
+
+<script>
+import { useRouter } from 'vue-router';
+
+export default {
+    methods: {
+        goToPageInstructions() {
+        this.$router.push('/PageInstructions');
+        },
+    }
+}
+</script>
