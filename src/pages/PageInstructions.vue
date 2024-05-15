@@ -1,21 +1,28 @@
 <template>
   <q-layout class="wrapper">
-    <div class="flex w-full flex-col items-center w-full mt-3">
+    <div class="flex w-full flex-col items-center justify-center w-full h-screen">
       <div class="flex items-center w-full justify-evenly">
         <div class="wrapper_range">
-          <input type="range" class="volume-rangers" v-model="intervalValue" min="0" max="100000" value="5000" step="1000" />
+          <input type="range" class="volume-rangers" v-model="intervalValue" min="0" max="10000" default="5000" step="1000" />
         </div>
-        <div class="circle" ref="circle">
-          <div class="inner-circle text-black" ref="innerCircle"></div>
-          <div class="circle-quarter quarter-1"></div>
-          <div class="circle-quarter quarter-2"></div>
-          <div class="circle-quarter quarter-3"></div>
-          <div class="circle-quarter quarter-4"></div>
-          <!-- Текст в каждом углу -->
-          <span class="text text-1">A</span>
-          <span class="text text-2">B</span>
-          <span class="text text-3">C</span>
-          <span class="text text-4">D</span>
+        <div>
+          <div class="circle" ref="circle">
+            <div class="inner-circle text-black" ref="innerCircle"></div>
+            <div class="circle-quarter quarter-1"></div>
+            <div class="circle-quarter quarter-2"></div>
+            <div class="circle-quarter quarter-3"></div>
+            <div class="circle-quarter quarter-4"></div>
+            <!-- Текст в каждом углу -->
+            <span class="text text-1">A</span>
+            <span class="text text-2">B</span>
+            <span class="text text-3">C</span>
+            <span class="text text-4">D</span>
+          </div>
+            <div class="mt-20">
+              <div class="flex flex-col items-center mt-3" v-for="(value, index) in displayedValues" :key="index">
+              {{ value }}
+            </div>
+          </div>
         </div>
         <div>
           <button class="button" @click="toggleAnimation"></button>
@@ -35,7 +42,7 @@
       </transition>
     </div>
     <div>
-      <button class="bg-aqua rounded-full w-10 h-10" @click="chooseMusic"></button>
+      <button class="bg-aqua rounded-full w-10 h-10 mt-1" @click="chooseMusic"></button>
     </div> <!-- Кнопка выбора музыки -->
     <div>
       <button @click="toggleEqualizer" class="equalizer-icon-button w-10 h-10">
@@ -46,11 +53,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch, onMounted, computed } from 'vue';
 
 const circle = ref(null);
 const innerCircle = ref(null);
-const values = ref(["A1", "B2", "C3", "D4"]);
+const values = ref(["A1", "B2", "C3", "D4", "A11", "B22", "C33", "D44"]);
 let currentIndex = 0;
 let intervalId = null;
 const isRunning = ref(false);
@@ -64,19 +71,49 @@ const startUpdate = () => {
 };
 
 const updateValues = () => {
+  // Обновление значений внутри круга
   innerCircle.value.textContent = values.value[currentIndex];
   const index = values.value[currentIndex].charCodeAt(0) - 65;
+
+  // Удаление класса activetext у всех текстовых элементов
+  document.querySelectorAll('.text').forEach((text) => {
+    text.classList.remove('activetext');
+  });
+
+  // Добавление класса activetext к нужному текстовому элементу
+  const activeText = circle.value.querySelector(`.text-${index + 1}`);
+  if (activeText) {
+    activeText.classList.add('activetext');
+  }
+
+  // Установка активности для соответствующего квадранта круга
   document.querySelectorAll('.circle-quarter').forEach((quarter) => {
     quarter.classList.remove('active');
   });
   circle.value.querySelector(`.circle-quarter.quarter-${index + 1}`).classList.add('active');
+
   currentIndex = (currentIndex + 1) % values.value.length;
+  
+  showNextValues();
+  
+  // Проверяем, прошли ли все объекты в массиве values
+  if (currentIndex === 0) {
+    pauseUpdate(); // Вызываем функцию pauseUpdate, если все объекты пройдены
+    isRunning.value = true;
+    toggleAnimation();
+  }
 };
 
 const pauseUpdate = () => {
   isRunning.value = false;
   clearInterval(intervalId);
+  const btn = document.querySelector(".button");
+  btn.classList.remove("paused");
 };
+
+const defaultValues = () => {
+  innerCircle.value.textContent = values.value[currentIndex];
+}
 
 const toggleAnimation = () => {
   if (isRunning.value) {
@@ -88,13 +125,26 @@ const toggleAnimation = () => {
   btn.classList.toggle("paused");
 };
 
-onMounted(startUpdate);
-
 watch(intervalValue, (newValue) => {
   pauseUpdate();
-  startUpdate();
 });
+
+const displayedValues = ref(values.value.slice(0, 3));
+
+const showNextValues = () => {
+  displayedValues.value.shift(); // Удаляем первый элемент
+  if (currentIndex < values.value.length) {
+    // Добавляем следующее значение из values, если currentIndex не на последнем элементе
+    displayedValues.value.push(values.value[currentIndex + 2]);
+  }
+};
+
+onMounted(() => {
+  defaultValues(); // Установка значений по умолчанию
+});
+
 </script>
+
 
 
 <style scoped lang="scss">
@@ -245,6 +295,8 @@ watch(intervalValue, (newValue) => {
     right: 5px;
   }
 
-  .active { background-color: black; }
+  .active { background-color: black; transition: ease-in-out 0.3s}
+
+  .activetext { color: rgb(16, 17, 109); font-size: 28px; transition: ease-in-out 0.3s}
 
 </style>
