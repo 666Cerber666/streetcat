@@ -18,6 +18,9 @@
             vertical
             label
             reverse
+            track-color="teal-3"
+            color="teal-9"
+            markers= true
             class="volume-rangers"
           />
         </div>
@@ -60,12 +63,13 @@
         <div v-if="showVolumeSlider" class="volume-slider-container">
           <q-slider
             v-model="volume"
-            @input="adjustVolume"
             :min="0"
             :max="100"
             vertical
             label
             reverse
+            track-color="teal-3"
+            color="teal-9"
             class="volume-slider"
           />
         </div>
@@ -87,10 +91,11 @@
           <i class="fas fa-volume-up"></i>
           <q-slider
             v-model="volume"
-            @input="adjustVolume"
             :min="0"
             :max="100"
             label
+            track-color="teal-3"
+            color="teal-9"
             class="w-36"
           />
       </div>
@@ -119,6 +124,7 @@ const intervalValue = ref(5000); // Значение по умолчанию 500
 const showVolumeSlider = ref(false);
 const isRotating = ref(false);
 const newItem = ref(null);
+const volume = ref(50);
 
 const startUpdate = () => {
   if (!isRunning.value) {
@@ -402,6 +408,27 @@ onMounted(() => {
 
   .block-plates{
     min-height: 560px;
+  }
+
+  @media screen and (max-width:768px) {
+    .circle{
+      width:200px;
+      height: 200px;
+    }
+
+    .text{
+      font-size: 12px;
+    }
+
+    .circle-quarter{
+      width:100px;
+      height:100px;
+    }
+
+    .button{
+      border-width:37px 0 37px 30px;
+      height:24px;
+    }
   }
 
 </style>
