@@ -48,6 +48,7 @@
         </div>
         <div>
           <button class="button" @click="toggleAnimation"></button>
+          <audio ref="backgroundAudio" src="../../public/back_music2.mp3" loop></audio>
         </div> <!-- Кнопка старт/пауза -->
       </div>
     </div>
@@ -111,7 +112,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, computed } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 
 const circle = ref(null);
 const rangeWrapper = ref(null);
@@ -126,10 +127,13 @@ const isRotating = ref(false);
 const newItem = ref(null);
 const volume = ref(50);
 
+const backgroundAudio = ref(null);
+
 const startUpdate = () => {
   if (!isRunning.value) {
     isRunning.value = true;
     intervalId = setInterval(updateValues, intervalValue.value);
+    backgroundAudio.value.play(); // Запуск музыки
   }
 };
 
@@ -160,9 +164,9 @@ const updateValues = () => {
   circle.value.querySelector(`.circle-quarter.quarter-${index + 1}`).classList.add('active');
 
   currentIndex = (currentIndex + 1) % values.value.length;
-  
+
   showNextValues();
-  
+
   // Проверяем, прошли ли все объекты в массиве values
   if (currentIndex === 0) {
     pauseUpdate(); // Вызываем функцию pauseUpdate, если все объекты пройдены
@@ -174,6 +178,7 @@ const updateValues = () => {
 const pauseUpdate = () => {
   isRunning.value = false;
   clearInterval(intervalId);
+  backgroundAudio.value.pause(); // Остановка музыки
 };
 
 const defaultValues = () => {
@@ -183,15 +188,12 @@ const defaultValues = () => {
 const toggleAnimation = () => {
   if (isRunning.value) {
     pauseUpdate();
-    const btn = document.querySelector(".button");
-    btn.classList.toggle("paused");
-    toggleRotation();
   } else {
     startUpdate();
-    const btn = document.querySelector(".button");
-    btn.classList.toggle("paused");
-    toggleRotation();
   }
+  const btn = document.querySelector(".button");
+  btn.classList.toggle("paused");
+  toggleRotation();
 };
 
 const toggleVolume = () => {
@@ -222,10 +224,16 @@ const addNewValue = (newValue) => {
 
 onMounted(() => {
   defaultValues(); // Установка значений по умолчанию
+  backgroundAudio.value = document.querySelector('audio'); // Присваиваем реф аудиоэлементу
+});
+
+// Следим за изменением громкости и устанавливаем её для аудиоэлемента
+watch(volume, (newVolume) => {
+  backgroundAudio.value.volume = newVolume / 100;
 });
 
 </script>
-  
+
 <style scoped>
 .button {
   border: 0;
