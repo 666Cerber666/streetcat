@@ -78,8 +78,6 @@ const navigation = [
   { name: 'Главная', path: '/', current: true },
   { name: 'Товары', path: '/Products', current: false },
   { name: 'Генерация', path: '/GeneratePicture', current: false },
-  { name: 'Отзывы', path: '/reviews', current: false },
-  { name: 'Контакты', path: '/contacts', current: false }
 ];
 
 const nameMapping = {

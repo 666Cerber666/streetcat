@@ -47,7 +47,7 @@
         <div class="flex flex-col mt-4 p-5">
           <div>
             <div class="flex flex-nowrap justify-between w-full">
-              <p class="mb-4 textblock">Ваши генерации</p>
+              <p class="mb-4 textblock">Примеры генераций</p>
                 <div class="flex flex-nowrap gap-3 desktop-only">
                   <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button" @click="scrollLeft"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19 12H5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -73,7 +73,7 @@
                   </q-img>
                 </div>
                 <div class="section__item">
-                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
+                  <q-img src="../assets/images/image2.png" class="w-72 h-48">
                     <div class="absolute-bottom text-subtitle1 text-center textopengen">
                       ОТКРЫТЬ
                     </div>
@@ -87,7 +87,7 @@
                   </q-img>
                 </div>
                 <div class="section__item">
-                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
+                  <q-img src="../assets/images/image2.png" class="w-72 h-48">
                     <div class="absolute-bottom text-subtitle1 text-center textopengen">
                       ОТКРЫТЬ
                     </div>
@@ -106,7 +106,7 @@
                   </q-img>
                 </div>
                 <div class="section__item">
-                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
+                  <q-img src="../assets/images/image2.png" class="w-72 h-48">
                     <div class="absolute-bottom text-subtitle1 text-center textopengen">
                       ОТКРЫТЬ
                     </div>
@@ -120,7 +120,7 @@
                   </q-img>
                 </div>
                 <div class="section__item">
-                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
+                  <q-img src="../assets/images/image2.png" class="w-72 h-48">
                     <div class="absolute-bottom text-subtitle1 text-center textopengen">
                       ОТКРЫТЬ
                     </div>
