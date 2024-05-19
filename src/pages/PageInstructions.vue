@@ -202,6 +202,17 @@ const toggleVolume = () => {
 
 watch(intervalValue, (newValue) => {
   pauseUpdate();
+  const btn = document.querySelector(".button");
+  if (btn.classList.contains("paused")) {
+    btn.classList.remove("paused");
+  }
+  isRotating.value = false;
+  isRunning.value = false; // Сбрасываем состояние анимации при изменении интервала
+});
+
+// Следим за изменением громкости и устанавливаем её для аудиоэлемента
+watch(volume, (newVolume) => {
+  backgroundAudio.value.volume = newVolume / 100;
 });
 
 const displayedValues = ref(values.value.slice(0, 3));
@@ -225,11 +236,6 @@ const addNewValue = (newValue) => {
 onMounted(() => {
   defaultValues(); // Установка значений по умолчанию
   backgroundAudio.value = document.querySelector('audio'); // Присваиваем реф аудиоэлементу
-});
-
-// Следим за изменением громкости и устанавливаем её для аудиоэлемента
-watch(volume, (newVolume) => {
-  backgroundAudio.value.volume = newVolume / 100;
 });
 
 </script>
