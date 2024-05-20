@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="mobileClass">
     <Disclosure as="nav" class="bg-aqua relative z-50 rounded-tl-lg pr-2" v-slot="{ open }">
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8" :class="{'border-green-aqua rounded-tl-lg' : open}">
         <div class="relative flex h-16 items-center">
@@ -67,12 +67,17 @@
 </template>
 
 <script setup>
-import { watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+const isMobile = ref(false);
+
+const checkScreenSize = () => {
+  isMobile.value = window.innerWidth <= 768;
+};
 
 const navigation = [
   { name: 'Главная', path: '/', current: true },
@@ -100,6 +105,17 @@ const toggleMenu = () => {
   const body = document.body;
   document.body.classList.toggle('overflow-hidden');
 }
+
+onMounted(() => {
+  checkScreenSize();
+  window.addEventListener('resize', checkScreenSize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkScreenSize);
+});
+
+const mobileClass = computed(() => (isMobile.value ? 'fixed-top' : ''));
 </script>
 
 <style scoped>
@@ -137,6 +153,17 @@ const toggleMenu = () => {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: #fff; /* Цвет фона для лучшей видимости */
+  z-index: 1000; /* Убедитесь, что этот блок выше других элементов */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Тень для разделения от контента */
 }
 
 @font-face {

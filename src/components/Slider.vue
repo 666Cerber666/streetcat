@@ -8,10 +8,10 @@
       class="rounded-3xl carousel-container w-full"
     >
       <q-carousel-slide :name="1" img-src="../assets/images/image1.png">
-        <div class="slide-content flex flex-col items-center justify-center gap-20 mt-20">
+        <div class="slide-content flex flex-col items-center w-full px-2 justify-center gap-20">
           <div><h1 class="text-white font-normal mb-4 textslide">Картины из ниток по фото</h1>
           <p class="descslide">Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
-          <div><button class="bg-button w-52 mt-7">Заказать картину</button></div>
+          <div class="w-full mb-7"><button class="bg-button mt-7">Заказать картину</button></div>
         </div>
 
         <div class="custom-navigation">
@@ -22,10 +22,10 @@
         </div>
       </q-carousel-slide>
       <q-carousel-slide :name="2" img-src="../assets/images/image2.png">
-        <div class="slide-content flex flex-col items-center justify-center gap-20 mt-20">
+        <div class="slide-content flex flex-col items-center justify-center gap-20 w-full px-2">
           <div><h1 class="text-white font-normal mb-4 textslide">Картины из ниток по фото</h1>
           <p class="descslide">Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
-          <div><button class="bg-button w-52 mt-7">Заказать картину</button></div>
+          <div class="w-full mb-7"><button class="bg-button w-52 mt-7">Заказать картину</button></div>
         </div>
 
         <div class="custom-navigation">
@@ -36,10 +36,10 @@
         </div>
       </q-carousel-slide>
       <q-carousel-slide :name="3" img-src="../assets/images/image1.png">
-        <div class="slide-content flex flex-col items-center justify-center gap-20 mt-20">
+        <div class="slide-content flex flex-col items-center justify-center gap-20 w-full px-2">
           <div><h1 class="text-white font-normal mb-4 textslide">Картины из ниток по фото</h1>
           <p class="descslide">Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
-          <div><button class="bg-button w-52 mt-7">Заказать картину</button></div>
+          <div class="w-full mb-7"><button class="bg-button w-52 mt-7">Заказать картину</button></div>
         </div>
 
         <div class="custom-navigation">
@@ -50,10 +50,10 @@
         </div>
       </q-carousel-slide>
       <q-carousel-slide :name="4" img-src="../assets/images/image2.png">
-        <div class="slide-content flex flex-col items-center justify-center gap-20 mt-20">
+        <div class="slide-content flex flex-col items-center justify-center gap-20 w-full px-2">
           <div><h1 class="text-white font-normal mb-4 textslide">Картины из ниток по фото</h1>
           <p class="descslide">Погрузитесь в мир творчества с нашей уникальной картиной из нитей в стиле String Art.</p></div>
-          <div><button class="bg-button w-52 mt-7">Заказать картину</button></div>
+          <div class="w-full mb-7"><button class="bg-button w-52 mt-7">Заказать картину</button></div>
         </div>
 
         <div class="custom-navigation">
@@ -172,6 +172,11 @@ p{
   width: 100%;
   max-width: 240px; /* Максимальная ширина кнопки */
   margin: 0 auto; /* Центрирование по горизонтали */
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 61.6px;
+  text-align: center;
 }
 
 </style>
