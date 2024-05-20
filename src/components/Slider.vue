@@ -147,8 +147,31 @@ p{
   text-shadow: 8px 8px 4px rgba(0, 0, 0, 0.5);
 }
 
-.carousel-container{
-  height:450px;
+.carousel-container {
+  height: 450px;
+}
+
+.q-carousel-container {
+  position: relative;
+}
+
+.slide-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.button-wrapper {
+  max-width: calc(100% - 40px); /* Учитывается отступ слева и справа */
+  width: 100%;
+}
+
+.bg-button {
+  width: 100%;
+  max-width: 240px; /* Максимальная ширина кнопки */
+  margin: 0 auto; /* Центрирование по горизонтали */
 }
 
 </style>

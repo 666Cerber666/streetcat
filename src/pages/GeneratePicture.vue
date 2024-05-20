@@ -33,7 +33,7 @@
               </div>
         </div>
 
-          <div class="w-full ml-0 pr-10 mobile-only desktop-hide">
+          <div class="w-full ml-0 px-2 mobile-only desktop-hide">
               <p class="mb-4">Генерация картины по фото</p>
               <div class="w-full flex flex-col items-center bg-button justify-center text-center py-7 px-5 mt-3">
                   <div class="w-full bg-image h-40 flex justify-center items-center">
@@ -44,9 +44,8 @@
                 </div>
           </div>     
 
-        <div class="flex flex-col mt-4 p-5">
-          <div>
-            <div class="flex flex-nowrap justify-between w-full">
+        <div class="flex flex-col mt-4 p-5 w-full">
+            <div class="flex flex-row justify-between w-full">
               <p class="mb-4 textblock">Примеры генераций</p>
                 <div class="flex flex-nowrap gap-3 desktop-only">
                   <q-btn flat round dense class="text-gray-500 w-14 h-14 bg-button" @click="scrollLeft"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -64,7 +63,40 @@
           </div>
 
             <div class="w-screen overflow-x-hidden mobile-only">
-              <div class="section">
+              <div class="section gap-3">
+                <div class="section__item">
+                  <q-img src="../assets/images/image1.png" class="w-80 h-48">
+                    <div class="absolute-bottom text-subtitle1 text-center textopengen">
+                      ОТКРЫТЬ
+                    </div>
+                  </q-img>
+                </div>
+                <div class="section__item">
+                  <q-img src="../assets/images/image2.png" class="w-80 h-48">
+                    <div class="absolute-bottom text-subtitle1 text-center textopengen">
+                      ОТКРЫТЬ
+                    </div>
+                  </q-img>
+                </div>
+                <div class="section__item">
+                  <q-img src="../assets/images/image1.png" class="w-80 h-48">
+                    <div class="absolute-bottom text-subtitle1 text-center textopengen">
+                      ОТКРЫТЬ
+                    </div>
+                  </q-img>
+                </div>
+                <div class="section__item">
+                  <q-img src="../assets/images/image2.png" class="w-80 h-48">
+                    <div class="absolute-bottom text-subtitle1 text-center textopengen">
+                      ОТКРЫТЬ
+                    </div>
+                  </q-img>
+                </div>
+              </div>
+            </div>
+
+            <div class="desktop-only mt-5 overflow-x-hidden">
+              <div class="section gap-3">
                 <div class="section__item">
                   <q-img src="../assets/images/image1.png" class="w-72 h-48">
                     <div class="absolute-bottom text-subtitle1 text-center textopengen">
@@ -95,43 +127,6 @@
                 </div>
               </div>
             </div>
-
-            <div class="w-full desktop-only mt-5">
-              <div class="section">
-                <div class="section__item">
-                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
-                    <div class="absolute-bottom text-subtitle1 text-center textopengen">
-                      ОТКРЫТЬ
-                    </div>
-                  </q-img>
-                </div>
-                <div class="section__item">
-                  <q-img src="../assets/images/image2.png" class="w-72 h-48">
-                    <div class="absolute-bottom text-subtitle1 text-center textopengen">
-                      ОТКРЫТЬ
-                    </div>
-                  </q-img>
-                </div>
-                <div class="section__item">
-                  <q-img src="../assets/images/image1.png" class="w-72 h-48">
-                    <div class="absolute-bottom text-subtitle1 text-center textopengen">
-                      ОТКРЫТЬ
-                    </div>
-                  </q-img>
-                </div>
-                <div class="section__item">
-                  <q-img src="../assets/images/image2.png" class="w-72 h-48">
-                    <div class="absolute-bottom text-subtitle1 text-center textopengen">
-                      ОТКРЫТЬ
-                    </div>
-                  </q-img>
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-  
 
         </div>
       </div>
@@ -156,6 +151,10 @@
   .image {
     height: 320px;
     border-radius: 10px;
+  }
+
+  .wrapper {
+  overflow-x: hidden; /* Скрывает горизонтальную прокрутку */
   }
 
   .textgenerateblock{
@@ -184,7 +183,6 @@
   .section {
   display: flex;
   overflow-x: auto;
-  gap: 10px;
   scroll-snap-type: x mandatory;
   padding-right:25px;
 }
@@ -198,6 +196,7 @@
 }
 
 .section__item {
+  flex: 0 0 auto; /* Отключает автоматическое расширение элемента */
   scroll-snap-align: start;
 }
 
@@ -283,5 +282,11 @@ scroll-snap-align: end;
     text-shadow: 8px 8px 4px rgba(0, 0, 0, 0.5);
     color:white;
   }
+
+  @media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+  }
+}
   </style>
   

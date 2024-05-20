@@ -41,7 +41,7 @@
             </template>
         </div>
       </div>
-      <Footer/>
+      <Footer class="desktop-only"/>
     </q-layout>
   </template>
     

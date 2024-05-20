@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Disclosure as="nav" class="bg-aqua relative z-50 rounded-tl-lg pr-2 pt-3" v-slot="{ open }">
+    <Disclosure as="nav" class="bg-aqua relative z-50 rounded-tl-lg pr-2" v-slot="{ open }">
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8" :class="{'border-green-aqua rounded-tl-lg' : open}">
         <div class="relative flex h-16 items-center">
           <div class="sm:items-stretch sm:justify-start flex items-center">
@@ -97,6 +97,7 @@ const handleNavigation = (item) => {
 }
 
 const toggleMenu = () => {
+  const body = document.body;
   document.body.classList.toggle('overflow-hidden');
 }
 </script>
@@ -132,6 +133,10 @@ const toggleMenu = () => {
 
 .sm\\:block {
   display: block;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 @font-face {
